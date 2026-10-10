@@ -146,6 +146,12 @@ class PeftConfig:
     # Common values are r (alpha == rank) or 2*r.
     lora_alpha: int | None = None
 
+    # Per-module rank and alpha, overriding `r` and `lora_alpha` for the modules whose names match. Each maps a
+    # module name or regular expression to a value; they are PEFT's `rank_pattern` and `alpha_pattern`. E.g.
+    # '{".*gemma_expert.*": 32}' gives pi05's action expert rank 32 while the VLM keeps `r`, as openpi does.
+    rank_pattern: dict[str, int] | None = None
+    alpha_pattern: dict[str, int] | None = None
+
 
 @dataclass
 class JobConfig:
